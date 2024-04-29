@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import heroImage from "../../images/admin-image.png"; // Import the image
 
 import "./Navbar.css";
 
 export default function NavbarAdmin() {
-  const [open, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
-    <nav>
+    <nav className="navbar">
       <div className="header">
         <NavLink to="/">
-          <i /> ADMIN USER
+          <i className="fas fa-user-circle" /> ADMIN USER
         </NavLink>
       </div>
-      <ul
-        className="navbar-links"
-        style={{ transform: open ? "translateX(0px)" : "" }}
-      >
+      <ul className="navbar-links">
         <li>
           <NavLink to="/Verification" activeClassName="nav-active">
             Verification
@@ -27,22 +30,20 @@ export default function NavbarAdmin() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Registration" activeClassName="nav-active">
-            Registration
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/Voting" activeClassName="nav-active">
-            Voting
-          </NavLink>
-        </li>
-        <li>
           <NavLink to="/Results" activeClassName="nav-active">
             Results
           </NavLink>
         </li>
+        <li className="profile-image-container" onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
+          <img src={heroImage} alt="Profile" className="profile-image" />
+          {dropdownOpen && (
+            <div className="dropdown-menu">
+              <NavLink to="/Profile" className="dropdown-item" >Profile</NavLink>
+              <NavLink to="/Logout" className="dropdown-item">Logout</NavLink>
+            </div>
+          )}
+        </li>
       </ul>
-      <i onClick={() => setOpen(!open)} className="fas fa-bars burger-menu"></i>
     </nav>
   );
 }

@@ -44,7 +44,7 @@ export default class StartEnd extends Component {
         web3: web3,
         ElectionInstance: instance,
         account: accounts[0],
-      });
+      }); 
 
       const admin = await this.state.ElectionInstance.methods.getAdmin().call();
       if (this.state.account === admin) {
